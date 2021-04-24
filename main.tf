@@ -4,6 +4,7 @@ provider "aws" {
 variable "web_server_port" {
   description = "The port web server will use for HTTP requests"
   type = number
+  default = 8080
 }
 
 resource "aws_instance" "my-book-instance" {
@@ -53,4 +54,9 @@ resource "aws_security_group" "for-book-instance" {
       "0.0.0.0/0"
     ]
   }
+}
+
+output "public_ip" {
+  value = aws_instance.my-book-instance.public_ip
+  description = "Public IP of the web server"
 }
